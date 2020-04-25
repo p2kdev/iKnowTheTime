@@ -63,16 +63,16 @@ static double portraitVal = 90;
 //
 // %end
 
-%hook CSCoverSheetView
-	- (void) setDateViewPageAlignment:(long)alignment {
-
-				if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait)
-				{
-					[arg1 setContentInset:UIEdgeInsetsMake(portraitVal,0,0,0)];
-				}
-		%orig(0);
-	}
-%end
+//%hook CSCoverSheetView
+//	- (void) setDateViewPageAlignment:(long)alignment {
+//
+//				if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait)
+//				{
+//					[arg1 setContentInset:UIEdgeInsetsMake(portraitVal,0,0,0)];
+//				}
+//		%orig(0);
+//	}
+//%end
 
 //iOS 12
 %hook SBDashBoardView
