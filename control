@@ -1,7 +1,7 @@
 Package: com.p2kdev.iknowthetime
 Name: iKnowTheTime
 Depends: mobilesubstrate
-Version: 1.2.2
+Version: 1.2.3
 Architecture: iphoneos-arm
 Description: Hide the annoying DateTime label on the widgets page on the lockscreen!
 Maintainer: P2KDev <p2kdev@gmail.com>
