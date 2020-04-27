@@ -20,59 +20,29 @@
 static double portraitVal = 90;
 
 //iOS13
-// %hook CSTodayViewController
-
-// 	-(void)_updateAppearanceForScrollView:(id)arg1
-// 	{
-// 		%orig;
-// 		if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait)
-// 		{
-// 			[arg1 setContentInset:UIEdgeInsetsMake(portraitVal,0,0,0)];
-// 		}
-// 	}
-
-// 	-(void)_updateAppearanceForScrollView:(id)arg1 animated:(BOOL)arg2
-// 	{
-// 		%orig;
-// 		if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait)
-// 		{
-// 			[arg1 setContentInset:UIEdgeInsetsMake(portraitVal,0,0,0)];
-// 		}
-// 	}
-
-// %end
 @interface WGWidgetListHeaderView : UIView
 @end
 
 %hook WGWidgetListHeaderView
-
 	-(void)layoutSubviews
 	{
 		%orig;
-		[self removeFromSuperview];
+		self.hidden = YES;
 	}
 %end
-// %hook CSLayoutStrategy
-//
-// 	-(CGRect)suggestedFrameForListForPage:(id)arg1 bounds:(CGRect)arg2
-// 	{
-// 		CGRect orig = %orig;
-// 		orig.origin.y = orig.origin.y - portraitVal;
-// 		return orig;
-// 	}
-//
-// %end
 
-//%hook CSCoverSheetView
-//	- (void) setDateViewPageAlignment:(long)alignment {
-//
-//				if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait)
-//				{
-//					[arg1 setContentInset:UIEdgeInsetsMake(portraitVal,0,0,0)];
-//				}
-//		%orig(0);
-//	}
-//%end
+%hook CSTodayViewController
+
+	-(UIScrollView*)_dateMovingScrollView
+	{
+		return nil;
+	}
+%end
+// %hook CSCoverSheetView
+// 	- (void) setDateViewPageAlignment:(long)alignment {
+// 		%orig(0);
+// 	}
+// %end
 
 //iOS 12
 %hook SBDashBoardView
