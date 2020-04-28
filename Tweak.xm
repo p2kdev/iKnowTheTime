@@ -8,6 +8,9 @@
   -(void)exitAndRelaunch:(BOOL)arg1;
 @end
 
+@interface CSComponent
+	@property (assign,getter=isHidden,nonatomic) BOOL hidden;
+@end
 
 @interface CSTodayPageView : UIView
 	@property (nonatomic,retain) UIScrollView * widgetMajorScrollView;
@@ -15,6 +18,7 @@
 
 @interface CSTodayViewController
 	@property (nonatomic,retain) CSTodayPageView * view;
+	+(BOOL)_isPortrait;
 @end
 
 static double portraitVal = 90;
@@ -31,18 +35,28 @@ static double portraitVal = 90;
 	}
 %end
 
+//Fix for dateview hiding behind widgets
 %hook CSTodayViewController
 
-	-(UIScrollView*)_dateMovingScrollView
-	{
-		return nil;
-	}
+	// -(UIScrollView*)_dateMovingScrollView
+	// {
+	// 	return nil;
+	// }
 
 	-(BOOL)_allowsDateViewScroll
 	{
 		return NO;
 	}
+
+	-(void)_updateAppearance
+	{
+		%orig;
+
+		if ([%c(CSTodayViewController) _isPortrait])
+			MSHookIvar<CSComponent*>(self,"_dateViewComponent").hidden = YES;
+	}
 %end
+
 
 
 //iOS 12
