@@ -37,12 +37,13 @@ static double portraitVal = 90;
 	{
 		return nil;
 	}
+
+	-(BOOL)_allowsDateViewScroll
+	{
+		return NO;
+	}
 %end
-// %hook CSCoverSheetView
-// 	- (void) setDateViewPageAlignment:(long)alignment {
-// 		%orig(0);
-// 	}
-// %end
+
 
 //iOS 12
 %hook SBDashBoardView
